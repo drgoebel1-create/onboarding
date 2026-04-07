@@ -14,9 +14,9 @@ export const msalConfig: Configuration = {
 };
 
 export const loginRequest = {
-  scopes: ['Sites.ReadWrite.All', 'User.Read', 'User.ReadBasic.All'],
+  scopes: ['Sites.ReadWrite.All', 'User.Read', 'User.ReadBasic.All', 'Mail.Send'],
 };
 
 export const graphScopes = {
-  scopes: ['Sites.ReadWrite.All', 'User.ReadBasic.All'],
+  scopes: ['Sites.ReadWrite.All', 'User.ReadBasic.All', 'Mail.Send'],
 };
