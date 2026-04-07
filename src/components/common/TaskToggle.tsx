@@ -1,5 +1,6 @@
-import { Switch, Input, Label } from '@fluentui/react-components';
-import { useState, useCallback } from 'react';
+import { Switch, Label } from '@fluentui/react-components';
+import { useCallback } from 'react';
+import { PeoplePicker } from './PeoplePicker';
 
 interface TaskToggleProps {
   label: string;
@@ -9,20 +10,19 @@ interface TaskToggleProps {
 }
 
 export function TaskToggle({ label, checked, responsibleUser, onToggle }: TaskToggleProps) {
-  const [user, setUser] = useState(responsibleUser);
-
   const handleToggle = useCallback(
     (_: unknown, data: { checked: boolean }) => {
-      onToggle(data.checked, user);
+      onToggle(data.checked, responsibleUser);
     },
-    [onToggle, user],
+    [onToggle, responsibleUser],
   );
 
-  const handleUserBlur = useCallback(() => {
-    if (user !== responsibleUser) {
-      onToggle(checked, user);
-    }
-  }, [user, responsibleUser, checked, onToggle]);
+  const handlePersonChange = useCallback(
+    (upn: string) => {
+      onToggle(checked, upn);
+    },
+    [onToggle, checked],
+  );
 
   return (
     <div
@@ -38,13 +38,9 @@ export function TaskToggle({ label, checked, responsibleUser, onToggle }: TaskTo
       <Label style={{ minWidth: 140, fontWeight: checked ? 600 : 400 }}>
         {label}
       </Label>
-      <Input
-        placeholder="Zuständige/r (E-Mail)"
-        value={user}
-        onChange={(_, data) => setUser(data.value)}
-        onBlur={handleUserBlur}
-        style={{ flex: 1 }}
-        size="small"
+      <PeoplePicker
+        value={responsibleUser}
+        onChange={handlePersonChange}
       />
     </div>
   );
