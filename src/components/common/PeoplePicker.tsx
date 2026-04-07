@@ -19,7 +19,7 @@ export function PeoplePicker({ value, onChange, placeholder = 'Zuständige/r suc
   const [isSearching, setIsSearching] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout>>();
 
-  const handleInput = useCallback((_: unknown, data: { value: string }) => {
+  const handleChange = useCallback((_: unknown, data: { value: string }) => {
     setInputValue(data.value);
 
     if (debounceRef.current) clearTimeout(debounceRef.current);
@@ -56,7 +56,7 @@ export function PeoplePicker({ value, onChange, placeholder = 'Zuständige/r suc
   return (
     <Combobox
       value={inputValue}
-      onInput={handleInput}
+      onChange={handleChange}
       onOptionSelect={handleOptionSelect}
       placeholder={placeholder}
       freeform
