@@ -4,9 +4,13 @@ Web-App zur Verwaltung von Mitarbeiter-Onboarding-Cases, integriert mit SharePoi
 
 ## Features
 
-- **Dashboard** mit KPI-Kacheln (Cases gesamt, offen/aktiv, abgeschlossen, Bewertung, NPS)
+- **Dashboard** mit KPI-Kacheln (Cases gesamt, offen/aktiv, abgeschlossen, dringend, Bewertung, NPS)
+- **Urgency-Indikatoren** — Cases werden nach Dringlichkeit farblich markiert und sortiert
 - **Case Management** — Cases erstellen, bearbeiten, Status aendern
-- **Aufgaben-Checkliste** — 8 Onboarding-Tasks mit Zustaendigen (AD, E-Mail, VPN, Hardware, Telefon, Badge, Einweisung, M365)
+- **Auto-Assignment** — Standard-Zustaendige werden beim Anlegen eines Cases automatisch befuellt (konfigurierbar via `.env`)
+- **Auto-Status-Transitions** — Status wechselt automatisch (`Neu` → `In Bearbeitung` beim ersten Task, `In Bearbeitung` → `Bereit` wenn alle 8 Tasks erledigt)
+- **Smart Reminders** — Ein Dashboard-Button verschickt Sammel-Mails an alle Zustaendigen mit ihren noch offenen Aufgaben (Eintritt innerhalb 7 Tagen)
+- **Aufgaben-Checkliste** — 8 Onboarding-Tasks mit Zustaendigen (AD, E-Mail, VPN, Hardware, Telefon, Badge, Einweisung, M365) inkl. Benachrichtigungs-Mail bei Zuweisung
 - **Feedback-Uebersicht** — Bewertungen und NPS anzeigen
 - **Aktivitaetsprotokoll** — Alle Aenderungen nachvollziehbar
 - **Suche und Filter** — Cases nach Name, Status, Team filtern
@@ -54,6 +58,18 @@ Die App ist dann unter `http://localhost:5173` erreichbar.
 | `VITE_TENANT_ID` | Azure AD Tenant | `wernersobek.onmicrosoft.com` |
 | `VITE_SP_HOSTNAME` | SharePoint Hostname | `wernersobek.sharepoint.com` |
 | `VITE_SP_SITE_PATH` | SharePoint Site-Pfad | `/sites/IT-Onboarding` |
+| `VITE_DEFAULT_ASSIGNEE_AD` | Default-Zustaendiger fuer Active-Directory-Task (UPN/E-Mail) | *(leer)* |
+| `VITE_DEFAULT_ASSIGNEE_EMAIL` | Default-Zustaendiger fuer E-Mail-Task | *(leer)* |
+| `VITE_DEFAULT_ASSIGNEE_VPN` | Default-Zustaendiger fuer VPN-Task | *(leer)* |
+| `VITE_DEFAULT_ASSIGNEE_HARDWARE` | Default-Zustaendiger fuer Hardware-Task | *(leer)* |
+| `VITE_DEFAULT_ASSIGNEE_TELEFON` | Default-Zustaendiger fuer Telefon-Task | *(leer)* |
+| `VITE_DEFAULT_ASSIGNEE_BADGE` | Default-Zustaendiger fuer Badge-Task | *(leer)* |
+| `VITE_DEFAULT_ASSIGNEE_EINWEISUNG` | Default-Zustaendiger fuer Einweisungs-Task | *(leer)* |
+| `VITE_DEFAULT_ASSIGNEE_M365` | Default-Zustaendiger fuer Microsoft-365-Task | *(leer)* |
+
+Die `VITE_DEFAULT_ASSIGNEE_*`-Variablen sind optional. Wenn gesetzt, werden
+Tasks beim Anlegen eines neuen Cases automatisch zugewiesen und der/die
+jeweilige Zustaendige bekommt sofort eine Benachrichtigungs-Mail.
 
 ## Produktion
 

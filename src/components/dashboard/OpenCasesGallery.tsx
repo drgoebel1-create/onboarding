@@ -7,10 +7,26 @@ import { ChevronRight24Regular } from '@fluentui/react-icons';
 import { useNavigate } from 'react-router-dom';
 import type { OnboardingCase } from '../../types/case';
 import { StatusBadge } from '../common/StatusBadge';
-import { formatDate, fullName, taskProgress } from '../../utils/formatters';
+import {
+  caseUrgency,
+  compareByUrgency,
+  daysUntilEntry,
+  formatDate,
+  fullName,
+  taskProgress,
+  urgencyColor,
+} from '../../utils/formatters';
 
 interface OpenCasesGalleryProps {
   cases: OnboardingCase[];
+}
+
+function entryLabel(days: number | null): string {
+  if (days === null) return '—';
+  if (days < 0) return `${Math.abs(days)} Tag${Math.abs(days) === 1 ? '' : 'e'} überfällig`;
+  if (days === 0) return 'Eintritt heute';
+  if (days === 1) return 'Eintritt morgen';
+  return `Eintritt in ${days} Tagen`;
 }
 
 export function OpenCasesGallery({ cases }: OpenCasesGalleryProps) {
@@ -26,16 +42,21 @@ export function OpenCasesGallery({ cases }: OpenCasesGalleryProps) {
     );
   }
 
+  const sorted = [...cases].sort(compareByUrgency);
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-      {cases.map((c) => {
+      {sorted.map((c) => {
         const progress = taskProgress(c);
+        const urgency = caseUrgency(c);
+        const days = daysUntilEntry(c.OB_Eintrittsdatum);
         return (
           <Card
             key={c.id}
             style={{
               padding: '12px 16px',
               cursor: 'pointer',
+              borderLeft: `4px solid ${urgencyColor(urgency)}`,
             }}
             onClick={() => navigate(`/cases/${c.id}`)}
           >
@@ -55,7 +76,19 @@ export function OpenCasesGallery({ cases }: OpenCasesGalleryProps) {
                 </div>
                 <StatusBadge status={c.OB_Status} />
                 <Text size={200} style={{ color: tokens.colorNeutralForeground3 }}>
-                  Eintritt: {formatDate(c.OB_Eintrittsdatum)}
+                  {formatDate(c.OB_Eintrittsdatum)}
+                </Text>
+                <Text
+                  size={200}
+                  style={{
+                    color:
+                      urgency === 'red'
+                        ? urgencyColor('red')
+                        : tokens.colorNeutralForeground3,
+                    fontWeight: urgency === 'red' ? 600 : 400,
+                  }}
+                >
+                  {entryLabel(days)}
                 </Text>
                 <Text size={200} style={{ color: tokens.colorNeutralForeground3 }}>
                   Tasks: {progress.done}/{progress.total}

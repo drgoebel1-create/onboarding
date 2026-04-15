@@ -4,6 +4,7 @@ import {
   Checkmark24Regular,
   Star24Regular,
   ThumbLike24Regular,
+  Warning24Regular,
 } from '@fluentui/react-icons';
 import { KpiTile } from '../common/KpiTile';
 import type { DashboardStats } from '../../hooks/useDashboardStats';
@@ -31,6 +32,12 @@ export function KpiRow({ stats }: KpiRowProps) {
         label="Abgeschlossen"
         value={stats.completed}
         color="#107c10"
+      />
+      <KpiTile
+        icon={<Warning24Regular />}
+        label="Dringend"
+        value={stats.urgent}
+        color="#d13438"
       />
       <KpiTile
         icon={<Star24Regular />}

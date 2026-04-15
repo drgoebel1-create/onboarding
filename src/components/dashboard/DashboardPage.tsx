@@ -6,6 +6,7 @@ import { useFeedback } from '../../hooks/useFeedback';
 import { useDashboardStats } from '../../hooks/useDashboardStats';
 import { KpiRow } from './KpiRow';
 import { OpenCasesGallery } from './OpenCasesGallery';
+import { ReminderButton } from './ReminderButton';
 import { LoadingSpinner } from '../common/LoadingSpinner';
 import { ErrorMessage } from '../common/ErrorMessage';
 
@@ -33,13 +34,16 @@ export function DashboardPage() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Title2>Dashboard</Title2>
-        <Button
-          appearance="primary"
-          icon={<Add24Regular />}
-          onClick={() => navigate('/cases/new')}
-        >
-          Neuer Case
-        </Button>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <ReminderButton cases={cases} />
+          <Button
+            appearance="primary"
+            icon={<Add24Regular />}
+            onClick={() => navigate('/cases/new')}
+          >
+            Neuer Case
+          </Button>
+        </div>
       </div>
 
       <KpiRow stats={stats} />
