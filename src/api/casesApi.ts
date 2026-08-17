@@ -1,5 +1,6 @@
 import { getListItems, createListItem, updateListItem, LIST_NAMES } from './sharepointApi';
 import type { OnboardingCase, OnboardingCaseCreate } from '../types/case';
+import { TASK_DEFAULT_ASSIGNEES } from '../utils/constants';
 
 export async function getCases(): Promise<OnboardingCase[]> {
   return getListItems<OnboardingCase>(LIST_NAMES.cases);
@@ -19,14 +20,8 @@ export async function createCase(data: OnboardingCaseCreate): Promise<Onboarding
     OB_Task_Badge: false,
     OB_Task_Einweisung: false,
     OB_Task_M365: false,
-    OB_Task_AD_User: '',
-    OB_Task_Email_User: '',
-    OB_Task_VPN_User: '',
-    OB_Task_Hardware_User: '',
-    OB_Task_Telefon_User: '',
-    OB_Task_Badge_User: '',
-    OB_Task_Einweisung_User: '',
-    OB_Task_M365_User: '',
+    OB_Task_Arbeitsplatz: false,
+    ...TASK_DEFAULT_ASSIGNEES,
   });
 }
 

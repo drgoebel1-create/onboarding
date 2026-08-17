@@ -1,11 +1,13 @@
 import { useMemo } from 'react';
 import type { OnboardingCase } from '../types/case';
 import type { OnboardingFeedback } from '../types/feedback';
+import { caseUrgency } from '../utils/formatters';
 
 export interface DashboardStats {
   total: number;
   openActive: number;
   completed: number;
+  urgent: number;
   avgRating: number | null;
   avgNPS: number | null;
 }
@@ -16,7 +18,7 @@ export function useDashboardStats(
 ): DashboardStats {
   return useMemo(() => {
     if (!cases) {
-      return { total: 0, openActive: 0, completed: 0, avgRating: null, avgNPS: null };
+      return { total: 0, openActive: 0, completed: 0, urgent: 0, avgRating: null, avgNPS: null };
     }
 
     const total = cases.length;
@@ -26,6 +28,7 @@ export function useDashboardStats(
     const completed = cases.filter(
       (c) => c.OB_Status === 'Abgeschlossen',
     ).length;
+    const urgent = cases.filter((c) => caseUrgency(c) === 'red').length;
 
     let avgRating: number | null = null;
     let avgNPS: number | null = null;
@@ -46,6 +49,6 @@ export function useDashboardStats(
       }
     }
 
-    return { total, openActive, completed, avgRating, avgNPS };
+    return { total, openActive, completed, urgent, avgRating, avgNPS };
   }, [cases, feedback]);
 }
