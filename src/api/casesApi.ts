@@ -20,6 +20,7 @@ export async function createCase(data: OnboardingCaseCreate): Promise<Onboarding
     OB_Task_Badge: false,
     OB_Task_Einweisung: false,
     OB_Task_M365: false,
+    OB_Task_Arbeitsplatz: false,
     ...TASK_DEFAULT_ASSIGNEES,
   });
 }

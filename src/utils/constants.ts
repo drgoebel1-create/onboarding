@@ -11,11 +11,6 @@ export const LIST_NAMES = {
 
 export const GRAPH_BASE = 'https://graph.microsoft.com/v1.0';
 
-/**
- * Default assignees (UPN / E-Mail) per task. Configured via Vite env vars.
- * Used by `createCase` to pre-fill task owners automatically and trigger
- * notification mails on case creation. Empty strings mean "no default".
- */
 export const TASK_DEFAULT_ASSIGNEES: Record<TaskUserKey, string> = {
   OB_Task_AD_User: import.meta.env.VITE_DEFAULT_ASSIGNEE_AD || '',
   OB_Task_Email_User: import.meta.env.VITE_DEFAULT_ASSIGNEE_EMAIL || '',
@@ -25,11 +20,7 @@ export const TASK_DEFAULT_ASSIGNEES: Record<TaskUserKey, string> = {
   OB_Task_Badge_User: import.meta.env.VITE_DEFAULT_ASSIGNEE_BADGE || '',
   OB_Task_Einweisung_User: import.meta.env.VITE_DEFAULT_ASSIGNEE_EINWEISUNG || '',
   OB_Task_M365_User: import.meta.env.VITE_DEFAULT_ASSIGNEE_M365 || '',
+  OB_Task_Arbeitsplatz_User: import.meta.env.VITE_DEFAULT_ASSIGNEE_ARBEITSPLATZ || '',
 };
 
-/**
- * Reminder window in days — a case counts as "upcoming" when its
- * entry date is within this many days from today (used for Smart Reminders
- * and urgency coloring).
- */
 export const REMINDER_WINDOW_DAYS = 7;

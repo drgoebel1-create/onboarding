@@ -1,5 +1,6 @@
 import { differenceInCalendarDays, format, parseISO } from 'date-fns';
 import { de } from 'date-fns/locale';
+import { TASK_DEFINITIONS } from '../types/case';
 import type { OnboardingCase } from '../types/case';
 
 export function formatDate(dateStr: string | null | undefined): string {
@@ -25,20 +26,11 @@ export function fullName(vorname: string, nachname: string): string {
 }
 
 export function taskProgress(caseItem: Record<string, unknown>): { done: number; total: number } {
-  const taskKeys = [
-    'OB_Task_AD', 'OB_Task_Email', 'OB_Task_VPN', 'OB_Task_Hardware',
-    'OB_Task_Telefon', 'OB_Task_Badge', 'OB_Task_Einweisung', 'OB_Task_M365',
-  ];
-  const total = taskKeys.length;
-  const done = taskKeys.filter((k) => caseItem[k] === true).length;
+  const total = TASK_DEFINITIONS.length;
+  const done = TASK_DEFINITIONS.filter((t) => caseItem[t.key] === true).length;
   return { done, total };
 }
 
-/**
- * Returns the number of calendar days between today and the entry date.
- * Negative if the entry date is already in the past.
- * Returns `null` if the date cannot be parsed.
- */
 export function daysUntilEntry(eintrittsdatum: string | null | undefined): number | null {
   if (!eintrittsdatum) return null;
   try {
@@ -50,14 +42,6 @@ export function daysUntilEntry(eintrittsdatum: string | null | undefined): numbe
 
 export type UrgencyLevel = 'red' | 'yellow' | 'green' | 'none';
 
-/**
- * Derives a simple urgency level for a case based on days until entry
- * and task completion:
- * - `none`: case already completed (status Abgeschlossen) or paused
- * - `green`: all 8 tasks done, or entry comfortably far away
- * - `yellow`: entry within 7 days, tasks still open
- * - `red`: entry within 2 days (or overdue), tasks still open
- */
 export function caseUrgency(caseItem: OnboardingCase): UrgencyLevel {
   if (caseItem.OB_Status === 'Abgeschlossen' || caseItem.OB_Status === 'Pausiert') {
     return 'none';

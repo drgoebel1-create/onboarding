@@ -26,6 +26,7 @@ export interface OnboardingCase {
   OB_Task_Badge: boolean;
   OB_Task_Einweisung: boolean;
   OB_Task_M365: boolean;
+  OB_Task_Arbeitsplatz: boolean;
   OB_Task_AD_User: string;
   OB_Task_Email_User: string;
   OB_Task_VPN_User: string;
@@ -34,6 +35,7 @@ export interface OnboardingCase {
   OB_Task_Badge_User: string;
   OB_Task_Einweisung_User: string;
   OB_Task_M365_User: string;
+  OB_Task_Arbeitsplatz_User: string;
 }
 
 export interface OnboardingCaseCreate {
@@ -49,14 +51,15 @@ export interface OnboardingCaseCreate {
 }
 
 export const TASK_DEFINITIONS = [
-  { key: 'OB_Task_AD', userKey: 'OB_Task_AD_User', label: 'Active Directory' },
-  { key: 'OB_Task_Email', userKey: 'OB_Task_Email_User', label: 'E-Mail' },
-  { key: 'OB_Task_VPN', userKey: 'OB_Task_VPN_User', label: 'VPN' },
-  { key: 'OB_Task_Hardware', userKey: 'OB_Task_Hardware_User', label: 'Hardware' },
-  { key: 'OB_Task_Telefon', userKey: 'OB_Task_Telefon_User', label: 'Telefon' },
-  { key: 'OB_Task_Badge', userKey: 'OB_Task_Badge_User', label: 'Badge' },
-  { key: 'OB_Task_Einweisung', userKey: 'OB_Task_Einweisung_User', label: 'Einweisung' },
-  { key: 'OB_Task_M365', userKey: 'OB_Task_M365_User', label: 'Microsoft 365' },
+  { key: 'OB_Task_AD', userKey: 'OB_Task_AD_User', label: 'AD-Konto anlegen & Gruppen zuweisen' },
+  { key: 'OB_Task_Email', userKey: 'OB_Task_Email_User', label: 'E-Mail-Postfach einrichten' },
+  { key: 'OB_Task_VPN', userKey: 'OB_Task_VPN_User', label: 'VPN-Zugang konfigurieren' },
+  { key: 'OB_Task_Hardware', userKey: 'OB_Task_Hardware_User', label: 'Hardware bereitstellen (Laptop, Peripherie)' },
+  { key: 'OB_Task_Telefon', userKey: 'OB_Task_Telefon_User', label: 'Telefon / Nebenstelle einrichten' },
+  { key: 'OB_Task_Badge', userKey: 'OB_Task_Badge_User', label: 'Zutrittskarte erstellen' },
+  { key: 'OB_Task_Einweisung', userKey: 'OB_Task_Einweisung_User', label: 'Einweisung & Sicherheitsunterweisung' },
+  { key: 'OB_Task_M365', userKey: 'OB_Task_M365_User', label: 'M365-Lizenzen & Teams zuweisen' },
+  { key: 'OB_Task_Arbeitsplatz', userKey: 'OB_Task_Arbeitsplatz_User', label: 'Arbeitsplatz einrichten (Schreibtisch, Monitor)' },
 ] as const;
 
 export type TaskKey = (typeof TASK_DEFINITIONS)[number]['key'];

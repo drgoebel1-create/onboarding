@@ -8,9 +8,9 @@ Web-App zur Verwaltung von Mitarbeiter-Onboarding-Cases, integriert mit SharePoi
 - **Urgency-Indikatoren** — Cases werden nach Dringlichkeit farblich markiert und sortiert
 - **Case Management** — Cases erstellen, bearbeiten, Status aendern
 - **Auto-Assignment** — Standard-Zustaendige werden beim Anlegen eines Cases automatisch befuellt (konfigurierbar via `.env`)
-- **Auto-Status-Transitions** — Status wechselt automatisch (`Neu` → `In Bearbeitung` beim ersten Task, `In Bearbeitung` → `Bereit` wenn alle 8 Tasks erledigt)
+- **Auto-Status-Transitions** — Status wechselt automatisch (`Neu` → `In Bearbeitung` beim ersten Task, `In Bearbeitung` → `Bereit` wenn alle Tasks erledigt)
 - **Smart Reminders** — Ein Dashboard-Button verschickt Sammel-Mails an alle Zustaendigen mit ihren noch offenen Aufgaben (Eintritt innerhalb 7 Tagen)
-- **Aufgaben-Checkliste** — 8 Onboarding-Tasks mit Zustaendigen (AD, E-Mail, VPN, Hardware, Telefon, Badge, Einweisung, M365) inkl. Benachrichtigungs-Mail bei Zuweisung
+- **Aufgaben-Checkliste** — 9 Onboarding-Tasks mit Zustaendigen (AD-Konto, E-Mail, VPN, Hardware, Telefon, Badge, Einweisung, M365, Arbeitsplatz) inkl. Benachrichtigungs-Mail bei Zuweisung
 - **Feedback-Uebersicht** — Bewertungen und NPS anzeigen
 - **Aktivitaetsprotokoll** — Alle Aenderungen nachvollziehbar
 - **Suche und Filter** — Cases nach Name, Status, Team filtern
@@ -53,7 +53,7 @@ Die App ist dann unter `http://localhost:5173` erreichbar.
 ## Umgebungsvariablen
 
 | Variable | Beschreibung | Default |
-|----------|-------------|---------|
+|----------|-------------|--------|
 | `VITE_CLIENT_ID` | Entra ID App Registration Client ID | `cc86b24c-...` |
 | `VITE_TENANT_ID` | Azure AD Tenant | `wernersobek.onmicrosoft.com` |
 | `VITE_SP_HOSTNAME` | SharePoint Hostname | `wernersobek.sharepoint.com` |
@@ -66,6 +66,7 @@ Die App ist dann unter `http://localhost:5173` erreichbar.
 | `VITE_DEFAULT_ASSIGNEE_BADGE` | Default-Zustaendiger fuer Badge-Task | *(leer)* |
 | `VITE_DEFAULT_ASSIGNEE_EINWEISUNG` | Default-Zustaendiger fuer Einweisungs-Task | *(leer)* |
 | `VITE_DEFAULT_ASSIGNEE_M365` | Default-Zustaendiger fuer Microsoft-365-Task | *(leer)* |
+| `VITE_DEFAULT_ASSIGNEE_ARBEITSPLATZ` | Default-Zustaendiger fuer Arbeitsplatz-Task | *(leer)* |
 
 Die `VITE_DEFAULT_ASSIGNEE_*`-Variablen sind optional. Wenn gesetzt, werden
 Tasks beim Anlegen eines neuen Cases automatisch zugewiesen und der/die
